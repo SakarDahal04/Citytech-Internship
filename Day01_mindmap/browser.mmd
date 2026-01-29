@@ -1,0 +1,43 @@
+---
+    config:
+        theme: 'default'
+---
+
+mindmap
+  root((Browser Internals))
+    User_Interface
+      Navigation_Bar
+      Back_Forward_Buttons
+      Bookmarks_Menu
+    Browser_Engine
+      :::connection
+      Marshals actions between UI and Rendering Engine
+    Rendering_Engine
+      HTML_Parser
+        :::connection
+        Builds the DOM Tree
+      CSS_Parser
+        :::connection
+        Builds the CSSOM Tree
+      Attachment
+        :::connection
+        Combines DOM + CSSOM into Render Tree
+      Layout_Reflow
+        :::connection
+        Calculates exact coordinates for each node
+      Painting
+        :::connection
+        Rasterizes pixels onto the screen
+    Networking_Layer
+      :::connection
+      Handles HTTP requests and security
+    JavaScript_Interpreter
+      V8_SpiderMonkey
+        :::connection
+        Parses and executes script code
+    Data_Storage
+      Persistence
+        Cookies
+        LocalStorage
+        IndexedDB
+      Cache_Mechanism

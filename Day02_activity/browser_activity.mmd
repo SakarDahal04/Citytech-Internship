@@ -1,0 +1,24 @@
+stateDiagram-v2
+    [*] --> DNS_Lookup: User enters URL
+    DNS_Lookup --> Establish_TCP: IP Address found
+    Establish_TCP --> HTTP_Request: Connection Secure
+    
+    state "Processing Response" as PR {
+        HTTP_Request --> Receive_HTML
+        Receive_HTML --> Tokenize_HTML
+        Tokenize_HTML --> Build_DOM
+    }
+
+    state "Parallel Process" as PP {
+        Build_DOM --> Fetch_Resources: External CSS/JS found
+        Fetch_Resources --> Build_CSSOM
+    }
+
+    PP --> Render_Tree: Combine DOM + CSSOM
+    
+    state "Drawing Phase" as DP {
+        Render_Tree --> Layout: Calculate Geometry
+        Layout --> Paint: Rasterize Pixels
+    }
+
+    Paint --> [*]: Page Loaded

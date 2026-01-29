@@ -1,0 +1,46 @@
+---
+    config:
+        theme: 'default'
+---
+
+mindmap
+  root((HTTP Lifecycle))
+    User_Initiation
+      Browser_Action
+        :::connection
+        Translates URL to IP via DNS
+      Request_Construction
+        :::connection
+        Packages Headers and Method
+    
+    Connection_Layer
+      TCP_Handshake
+        :::connection
+        Establishes "Three-Way" reliability
+      TLS_Encryption
+        :::connection
+        Secures data via HTTPS certificate
+    
+    The_Transmission
+      Request_Sent
+        :::connection
+        Binary data travels over network
+      Server_Reception
+        :::connection
+        Web server parses the incoming "stream"
+    
+    Server_Logic
+      Resource_Lookup
+        :::connection
+        Checks disk or Database for file
+      Response_Generation
+        :::connection
+        Attaches Status Code (e.g., 200 OK)
+    
+    The_Return
+      Data_Transfer
+        :::connection
+        Sends HTML/CSS/JS chunks back
+      Browser_Rendering
+        :::connection
+        Interprets code to draw the UI

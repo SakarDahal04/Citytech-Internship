@@ -1,0 +1,41 @@
+stateDiagram-v2
+    [*] --> TCP_Connection: Browser initiates request
+    
+    state TCP_Connection {
+        [*] --> SYN
+        SYN --> SYN_ACK
+        SYN_ACK --> ACK
+    }
+
+    TCP_Connection --> Send_Request: Connection Established
+    
+    state Send_Request {
+        direction lr
+        Request_Line --> Headers
+        Headers --> Body
+    }
+
+    Send_Request --> Server_Processing
+    
+    state Server_Processing {
+        [*] --> Authentication
+        Authentication --> Resource_Lookup
+        Resource_Lookup --> Generate_Response
+    }
+
+    Server_Processing --> Receive_Response
+    
+    state Receive_Response {
+        direction lr
+        Status_Code --> Response_Headers
+        Response_Headers --> Response_Body
+    }
+
+    Receive_Response --> Connection_Check
+    
+    state Connection_Check <<choice>>
+    Connection_Check --> Keep_Alive : Keep-Alive
+    Connection_Check --> Close : Close_Connection
+    
+    Keep_Alive --> [*]
+    Close --> [*]
