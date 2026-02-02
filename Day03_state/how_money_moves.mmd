@@ -1,0 +1,21 @@
+stateDiagram-v2
+    [*] --> CardPresented
+
+    CardPresented --> AuthorizationRequested : Customer enters card details
+    AuthorizationRequested --> IssuingBankCheck : Payment gateway sends auth request
+
+    IssuingBankCheck --> AuthorizationApproved : Sufficient funds & valid card
+    IssuingBankCheck --> AuthorizationDeclined : Insufficient funds / fraud / invalid card
+
+    AuthorizationDeclined --> [*]
+
+    AuthorizationApproved --> AuthHoldPlaced : Temporary hold on customer funds
+    AuthHoldPlaced --> TransactionCompleted : Merchant completes sale
+
+    TransactionCompleted --> BatchSubmitted : End-of-day batch submission
+    BatchSubmitted --> ClearingProcess : Card network clears transactions
+
+    ClearingProcess --> SettlementProcess : Issuing bank transfers funds
+    SettlementProcess --> MerchantAccountCredited : Acquiring bank credits merchant
+
+    MerchantAccountCredited --> [*]
